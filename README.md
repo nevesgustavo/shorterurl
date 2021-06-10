@@ -1,4 +1,3 @@
-"# shorterurl" 
 # URL Shorter
 
 You can use this service to turn large urls into small urls
