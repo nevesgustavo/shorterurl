@@ -1,0 +1,32 @@
+version: "3"
+services:
+  shorterurlapp:
+    build: .
+    image: shorterurlapp:latest
+    container_name: shorterurlapp
+    ports:
+      - 8085:8085
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shorterurldb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  db:
+    image: postgres:latest
+    container_name: db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=shorterurldb
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+
+volumes:
+  pgdata:
