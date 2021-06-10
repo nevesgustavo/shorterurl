@@ -1,8 +1,7 @@
 version: "3"
 services:
   shorterurlapp:
-    build: .
-    image: shorterurlapp:latest
+    image: gustavon/shorterurlapp:latest
     container_name: shorterurlapp
     ports:
       - 8085:8085
@@ -14,6 +13,8 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+    networks:
+      - app-network
   db:
     image: postgres:latest
     container_name: db
@@ -27,6 +28,12 @@ services:
       - POSTGRES_DB=shorterurldb
       - PGDATA=/var/lib/postgresql/data/pgdata
     restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   pgdata:
