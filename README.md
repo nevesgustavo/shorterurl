@@ -52,7 +52,7 @@ volumes:
 ## Apis
 To see the api documentation and try out you can access http://localhost:8085/swagger-ui.html after run the docker-compose above
 
-![Api-docs](extra/diagram.png)
+![Api-docs](extra/shorter-url-api.png)
 
 ### Run the application locally
 If you can checkout this application and run locally, you can use the docker-compose bellow instead of the above one
