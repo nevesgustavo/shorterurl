@@ -15,7 +15,7 @@ public class ShortUrlLog {
     @Column(name = "hash", nullable = false)
     private String hash;
 
-    @Column(name = "originalUrl", nullable = false)
+    @Column(name = "originalUrl", nullable = false, length = 8000)
     private String originalUrl;
 
     @Column(name = "createdAt", nullable = false)

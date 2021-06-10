@@ -15,9 +15,8 @@ public class ShortUrl {
     @Column(name = "hash", nullable = false)
     private String hash;
 
-    @Column(name = "original_url", nullable = false)
+    @Column(name = "original_url", nullable = false, length = 8000)
     private String originalUrl;
-
 
     @Column(name = "expiration_date", nullable = false)
     private java.time.LocalDateTime expirationDate;
