@@ -1,8 +1,8 @@
-package br.com.neves.shorturl.service;
+package br.com.neves.shorturl.service.impl.relational;
 
-import br.com.neves.shorturl.jpa.model.ShortUrl;
-import br.com.neves.shorturl.jpa.model.ShortUrlLog;
-import br.com.neves.shorturl.jpa.repository.ShortUrlLogRepository;
+import br.com.neves.shorturl.jpa.model.relational.ShortUrl;
+import br.com.neves.shorturl.jpa.model.relational.ShortUrlLog;
+import br.com.neves.shorturl.jpa.repository.relational.ShortUrlLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

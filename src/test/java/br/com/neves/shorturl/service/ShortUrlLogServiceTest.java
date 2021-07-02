@@ -1,12 +1,14 @@
 package br.com.neves.shorturl.service;
 
-import br.com.neves.shorturl.jpa.model.ShortUrl;
-import br.com.neves.shorturl.jpa.repository.ShortUrlLogRepository;
+import br.com.neves.shorturl.jpa.model.relational.ShortUrl;
+import br.com.neves.shorturl.jpa.repository.relational.ShortUrlLogRepository;
+import br.com.neves.shorturl.service.impl.relational.ShortUrlLogService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @SpringBootTest
 class ShortUrlLogServiceTest {
 // ------------------------------ FIELDS ------------------------------
@@ -19,13 +21,13 @@ class ShortUrlLogServiceTest {
     private ShortUrlLogRepository shortUrlLogRepository;
 
     @Autowired
-    private UrlShorterService urlShorterService;
+    private ShorterUrlService shorterUrlService;
 
 // -------------------------- OTHER METHODS --------------------------
 
     @Test
     void save() {
-        String hash = urlShorterService.generateHash("gustavon");
+        String hash = shorterUrlService.generateHash("gustavon");
         shortUrlLogService.save(new ShortUrl(hash, ORIGINAL_URL_TEST));
         Assertions.assertTrue(shortUrlLogRepository.existsByHash(hash));
     }

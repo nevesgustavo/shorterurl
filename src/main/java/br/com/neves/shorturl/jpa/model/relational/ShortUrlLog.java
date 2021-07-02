@@ -1,4 +1,4 @@
-package br.com.neves.shorturl.jpa.model;
+package br.com.neves.shorturl.jpa.model.relational;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

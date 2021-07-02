@@ -4,9 +4,8 @@ import br.com.neves.shorturl.utils.HashGeneratorUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public class SHA2HashGenerator implements HashGenerator {
 // ------------------------------ FIELDS ------------------------------
 

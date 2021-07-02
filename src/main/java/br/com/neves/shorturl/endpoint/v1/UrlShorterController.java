@@ -5,7 +5,7 @@ import br.com.neves.shorturl.exception.UrlExpiredException;
 import br.com.neves.shorturl.exception.UrlNotFoundException;
 import br.com.neves.shorturl.model.CustomUrlCommand;
 import br.com.neves.shorturl.model.ShortUrlCommand;
-import br.com.neves.shorturl.service.UrlShorterService;
+import br.com.neves.shorturl.service.ShorterUrlService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/v1/shortUrl")
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@RequestMapping("/api/v1/shortUrl")
 @RestController
 public class UrlShorterController {
 // ------------------------------ FIELDS ------------------------------
 
     @Autowired
-    private UrlShorterService urlShorterService;
+    private ShorterUrlService shorterUrlService;
 
 // -------------------------- OTHER METHODS --------------------------
 
@@ -28,7 +29,7 @@ public class UrlShorterController {
     @ApiOperation(value = "Return a short url with the custom sent hash", response = String.class)
     public ResponseEntity<String> createCustomShortUrl(@Valid @RequestBody CustomUrlCommand shortUrlCommand) {
         try {
-            return ResponseEntity.ok(urlShorterService.createCustomShortUrl(shortUrlCommand.getHash(), shortUrlCommand.getOriginalUrl(), shortUrlCommand.getExpirationDays()));
+            return ResponseEntity.ok(shorterUrlService.createCustomShortUrl(shortUrlCommand.getHash(), shortUrlCommand.getOriginalUrl(), shortUrlCommand.getExpirationDays()));
         }catch (HashAlreadyExistsException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -37,7 +38,7 @@ public class UrlShorterController {
     @PostMapping(value = "/create")
     @ApiOperation(value = "Return a short url with a generated hash", response = String.class)
     public ResponseEntity<String> createShortUrl(@Valid @RequestBody ShortUrlCommand shortUrlCommand) {
-        return ResponseEntity.ok(urlShorterService.createShortUrl(shortUrlCommand.getLoginName(), shortUrlCommand.getOriginalUrl(),
+        return ResponseEntity.ok(shorterUrlService.createShortUrl(shortUrlCommand.getLoginName(), shortUrlCommand.getOriginalUrl(),
                 shortUrlCommand.getExpirationDays()));
     }
 
@@ -46,7 +47,7 @@ public class UrlShorterController {
     public ResponseEntity<String> getUrlByHash(@PathVariable String hash) {
         String originalUrl;
         try {
-            originalUrl = urlShorterService.getOriginalUrlByHashAndSaveLog(hash);
+            originalUrl = shorterUrlService.getOriginalUrlByHashAndSaveLog(hash);
         } catch (UrlNotFoundException | UrlExpiredException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

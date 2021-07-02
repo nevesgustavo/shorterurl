@@ -1,20 +1,6 @@
 version: "3"
 services:
-  shorterurlapp:
-    image: gustavon/shorterurlapp:latest
-    container_name: shorterurlapp
-    ports:
-      - 8085:8085
-    restart: unless-stopped
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shorterurldb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
-    networks:
-      - app-network
+
   db:
     image: postgres:latest
     container_name: db
@@ -30,6 +16,20 @@ services:
     restart: unless-stopped
     networks:
       - app-network
+  mongodb_container:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    volumes:
+      - mongo_data_container:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: shorturl
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    networks:
+      - app-network
 
 networks:
   app-network:
@@ -37,3 +37,4 @@ networks:
 
 volumes:
   pgdata:
+  mongo_data_container:
